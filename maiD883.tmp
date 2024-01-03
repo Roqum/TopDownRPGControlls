@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5e4s6vonyd7p"]
+
+[ext_resource type="Script" path="res://scripts/CameraMovement.gd" id="2_6lb6d"]
+[ext_resource type="PackedScene" uid="uid://j0k4bkeayym7" path="res://scenes/animatable_body_3d.tscn" id="2_ixnmj"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hx2sp"]
+
+[node name="world" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 5)
+script = ExtResource("2_6lb6d")
+
+[node name="MovementMarker" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="MovementMarkerCollider" type="CollisionShape3D" parent="MovementMarker"]
+shape = SubResource("SphereShape3D_hx2sp")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="MovementMarker"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.82558, -4.62731)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.544742, -5.17796)
+
+[node name="AnimatableBody3D" parent="." instance=ExtResource("2_ixnmj")]

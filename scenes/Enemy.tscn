@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq6fgu4i2ov48"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_lo2n6"]
+[ext_resource type="PackedScene" uid="uid://dn6ephy23dwgu" path="res://scenes/HitBoxComponent.tscn" id="2_mxt1n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4g7cc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sgnw2"]
+radius = 15.0
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_lo2n6")
+
+[node name="BodyCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_4g7cc")
+
+[node name="TriggerRadius" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 262144
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerRadius"]
+shape = SubResource("SphereShape3D_sgnw2")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="HitBoxComponent" parent="." instance=ExtResource("2_mxt1n")]

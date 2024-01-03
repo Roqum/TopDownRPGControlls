@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5e4s6vonyd7p"]
+
+[ext_resource type="Script" path="res://scripts/MouseController.gd" id="1_epjiv"]
+[ext_resource type="PackedScene" uid="uid://dvf07sctocwro" path="res://scenes/MainCharacter.tscn" id="2_kfdn5"]
+[ext_resource type="PackedScene" uid="uid://bq6fgu4i2ov48" path="res://scenes/Enemy.tscn" id="3_f4sxf"]
+
+[sub_resource type="Environment" id="Environment_0v7lh"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_7p5so"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_50hya"]
+radius = 0.8
+
+[sub_resource type="MeshLibrary" id="MeshLibrary_uf11e"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_nsesh"]
+
+[node name="world" type="WorldEnvironment"]
+environment = SubResource("Environment_0v7lh")
+camera_attributes = SubResource("CameraAttributesPractical_7p5so")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 10, 5)
+script = ExtResource("1_epjiv")
+
+[node name="MovementMarker" type="Area3D" parent="."]
+collision_layer = 262146
+collision_mask = 262146
+
+[node name="MovementMarkerCollider" type="CollisionShape3D" parent="MovementMarker"]
+shape = SubResource("SphereShape3D_50hya")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="MovementMarker"]
+visible = false
+radius = 0.8
+
+[node name="Terrain" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+collision_layer = 524289
+size = Vector3(100, 1, 100)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.82558, -4.62731)
+
+[node name="Box" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.544742, -5.17796)
+layers = 524289
+
+[node name="MainCharacter" parent="." instance=ExtResource("2_kfdn5")]
+
+[node name="Enemy" parent="." instance=ExtResource("3_f4sxf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.9935, -1.90735e-06, -2.59811)
+
+[node name="GridMap" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70489, 4.90304, 2.00156)
+mesh_library = SubResource("MeshLibrary_uf11e")
+physics_material = SubResource("PhysicsMaterial_nsesh")
+metadata/_editor_floor_ = Vector3(0, -2, 0)
